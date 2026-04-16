@@ -19,15 +19,11 @@ BMad solves this problem. Its workflow orchestration enforces phase ordering, pr
 ```bash
 # 1. Install
 npx bmad-method install --custom-source https://github.com/CaffreySun/sp-workflow-bmad --tools claude-code --yes
-
-# 2. Setup (first time only)
-/sp-setup
-
-# 3. That's it — let bmad-help guide you
-/bmad-help
 ```
 
-`/bmad-help` will tell you which phase you're in, what's already done, and what to invoke next. Follow its recommendation, and repeat after each skill completes.
+After installation, open Claude Code in your project and run `/bmad-help`. It will detect that the module needs configuration and guide you through setup — you don't need to remember any commands.
+
+Once configured, `/bmad-help` tells you which phase you're in, what's already done, and what to do next. Follow its recommendation after each skill completes.
 
 ## Workflow Overview
 
@@ -84,7 +80,7 @@ npx bmad-method install
 npx bmad-method install --custom-source https://github.com/CaffreySun/sp-workflow-bmad --tools claude-code --yes
 ```
 
-After installation, run `/sp-setup` in your project to register the module and configure options.
+After installation, run `/bmad-help` in your project — it will guide you through first-time setup and then navigate you through the workflow.
 
 ## Configuration
 

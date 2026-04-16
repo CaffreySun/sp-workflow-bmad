@@ -19,15 +19,11 @@ BMad 解决了这个问题。它的流程编排强制执行阶段顺序、前置
 ```bash
 # 1. 安装
 npx bmad-method install --custom-source https://github.com/CaffreySun/sp-workflow-bmad --tools claude-code --yes
-
-# 2. 初始化（仅首次）
-/sp-setup
-
-# 3. 就这些——让 bmad-help 引导你
-/bmad-help
 ```
 
-`/bmad-help` 会告诉你当前处于哪个阶段、已完成什么、下一步该调用什么。按照它的推荐操作，每个技能完成后再重复即可。
+安装后，在项目中打开 Claude Code 并运行 `/bmad-help`。它会检测到模块尚未配置，自动引导你完成初始化——你不需要记住任何命令。
+
+配置完成后，`/bmad-help` 会告诉你当前处于哪个阶段、已完成什么、下一步该做什么。每个技能完成后再运行一次即可。
 
 ## 工作流概览
 
@@ -84,7 +80,7 @@ npx bmad-method install
 npx bmad-method install --custom-source https://github.com/CaffreySun/sp-workflow-bmad --tools claude-code --yes
 ```
 
-安装后，在项目中运行 `/sp-setup` 注册模块并配置选项。
+安装后，在项目中运行 `/bmad-help`——它会引导你完成首次配置，然后导航整个工作流。
 
 ## 配置
 
