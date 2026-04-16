@@ -2,7 +2,28 @@
 
 A phase-aware BMad workflow module that wraps the [superpowers](https://github.com/obra/superpowers) plugin, combining BMad's workflow orchestration with superpowers' disciplined execution capabilities.
 
-## Workflow
+## How It Works
+
+You don't need to memorize skill names or phase order. **`/bmad-help`** is your single entry point — it detects where you are in the workflow and tells you exactly what to do next.
+
+Every skill also recommends the next step when it completes, so you always know what to run.
+
+## Quick Start
+
+```bash
+# 1. Install
+npx bmad-method install --custom-source https://github.com/CaffreySun/sp-workflow-bmad --tools claude-code --yes
+
+# 2. Setup (first time only)
+/sp-setup
+
+# 3. That's it — let bmad-help guide you
+/bmad-help
+```
+
+`/bmad-help` will tell you which phase you're in, what's already done, and what to invoke next. Follow its recommendation, and repeat after each skill completes.
+
+## Workflow Overview
 
 ```
 [BR] Brainstorm → [PL] Write Plan → [EX] Execute → [RV] Review → [VF] Verify → [FN] Finish
@@ -10,58 +31,37 @@ A phase-aware BMad workflow module that wraps the [superpowers](https://github.c
 Anytime: [WG] Workflow Guide | [TD] TDD | [DB] Debugging | [WT] Worktrees
 ```
 
-### Phase Rules
+The workflow is linear with two required gates — you must have a plan to execute, and you must verify before finishing. Other phases are soft gates (warned but overridable). Anytime skills can be used at any point.
 
-| Phase | Skill | Gate | Description |
+### Phase Details
+
+| Phase | Skill | Gate | What It Does |
 |-------|-------|------|-------------|
-| 1-brainstorm | sp-brainstorm | soft | No design doc? Warn but allow override |
-| 2-plan | sp-plan | **BLOCK** | Execution cannot start without a plan |
-| 3-execute | sp-execute | soft | No plan file? Block; wrong branch? Warn |
-| 4-review | sp-review | soft | No changes or no tests? Warn but allow |
-| 5-verify | sp-verify | **BLOCK** | No plan/spec to verify against? Block |
-| 6-finish | sp-finish | soft | Verification not done? Strong warn |
+| 1-brainstorm | sp-brainstorm | soft | Explore ideas, produce design doc |
+| 2-plan | sp-plan | **BLOCK** | Create implementation plan with TDD steps — required before execution |
+| 3-execute | sp-execute | soft | Implement plan task-by-task (subagent or inline mode) |
+| 4-review | sp-review | soft | Two-stage code review: spec compliance then code quality |
+| 5-verify | sp-verify | **BLOCK** | Verify all requirements met — required before finishing |
+| 6-finish | sp-finish | soft | Clean commits, create PR, cleanup worktree |
 
-**Anytime skills** (no prerequisites): sp-tdd, sp-debugging, sp-worktrees — available at any phase.
+**Anytime skills**: sp-tdd (strict TDD cycles), sp-debugging (systematic root cause analysis), sp-worktrees (isolated parallel development) — available at any phase, no prerequisites.
 
-Each skill delegates to the corresponding superpowers skill while adding:
-- **Prerequisite checking** — warns or blocks if prior phase is incomplete
-- **Output validation** — confirms expected artifacts were produced
-- **Next-step guidance** — recommends the next skill in the workflow
+## Skill Reference
 
-## Quick Start
+These are the skills registered with bmad-help. You can invoke them directly, but `/bmad-help` will recommend the right one at the right time.
 
-```bash
-# 1. Install the module
-npx bmad-method install --custom-source https://github.com/CaffreySun/sp-workflow-bmad --tools claude-code --yes
-
-# 2. In your project, run setup to register and configure
-/sp-setup
-
-# 3. Start the workflow — brainstorm a new feature
-/sp-brainstorm
-
-# 4. Follow the recommended next steps after each skill completes:
-#    brainstorm → plan → execute → review → verify → finish
-
-# Feeling lost? Check where you are:
-/sp-workflow-guide
-```
-
-### Typical Session
-
-```
-/sp-brainstorm        → produces design doc
-/sp-plan              → produces implementation plan with TDD steps
-/sp-execute           → implements plan (subagent-driven by default)
-  ↳ bug found? → /sp-debugging   (anytime, returns to execution)
-  ↳ need TDD?  → /sp-tdd         (anytime, returns to execution)
-/sp-review            → two-stage code review (spec + quality)
-/sp-verify            → final quality gate against requirements
-/sp-finish            → clean commits, PR, worktree cleanup
-
-# Want isolated development? Use worktrees:
-/sp-worktrees         → create worktree before brainstorm
-```
+| Code | Skill | When to Use |
+|------|-------|-------------|
+| WG | sp-workflow-guide | Don't know where you are? Detects current phase and recommends next step (self-contained, no delegation) |
+| BR | sp-brainstorm | Starting a new feature — explore ideas, produce design doc |
+| PL | sp-plan | Have a design — create detailed implementation plan with TDD steps |
+| EX | sp-execute | Have a plan — implement it task-by-task (subagent or inline) |
+| TD | sp-tdd | Small change — strict RED-GREEN-REFACTOR without a full plan |
+| DB | sp-debugging | Failing tests, runtime errors — hypothesis-driven root cause analysis |
+| RV | sp-review | Implementation done — two-stage review (spec + quality) |
+| VF | sp-verify | Review done — verify every requirement is implemented and tested |
+| FN | sp-finish | Verified — clean commits, push, create PR, cleanup worktree |
+| WT | sp-worktrees | Need isolation — create/manage git worktrees for parallel work |
 
 ## Prerequisites
 
@@ -79,21 +79,6 @@ npx bmad-method install --custom-source https://github.com/CaffreySun/sp-workflo
 ```
 
 After installation, run `/sp-setup` in your project to register the module and configure options.
-
-## Skills
-
-| Menu Code | Skill | Phase | Delegates To | When to Use |
-|-----------|-------|-------|-------------|-------------|
-| WG | sp-workflow-guide | anytime | (self-contained) | Don't know where you are or what's next? Run this. |
-| BR | sp-brainstorm | 1-brainstorm | superpowers:brainstorming | Starting a new feature — explore ideas, produce design doc. |
-| PL | sp-plan | 2-plan | superpowers:writing-plans | Have a design — create a detailed implementation plan with TDD steps. |
-| EX | sp-execute | 3-execute | superpowers:subagent-driven-development / executing-plans | Have a plan — implement it task-by-task. Two modes: subagent (recommended) or inline. |
-| TD | sp-tdd | anytime | superpowers:test-driven-development | Small feature or bugfix that doesn't need a full plan — strict RED-GREEN-REFACTOR. |
-| DB | sp-debugging | anytime | superpowers:systematic-debugging | Failing tests, runtime errors, regressions — hypothesis-driven root cause analysis. |
-| RV | sp-review | 4-review | superpowers:requesting-code-review + receiving-code-review | Implementation done — two-stage review: spec compliance then code quality. |
-| VF | sp-verify | 5-verify | superpowers:verification-before-completion | Review done — verify every requirement is implemented and tested. |
-| FN | sp-finish | 6-finish | superpowers:finishing-a-development-branch | Verified — clean commits, push, create PR, cleanup worktree. |
-| WT | sp-worktrees | anytime | superpowers:using-git-worktrees | Need isolated workspace — create/manage git worktrees for parallel development. |
 
 ## Configuration
 
