@@ -1,12 +1,16 @@
 # Superpowers Workflow — BMad Module
 
-A phase-aware BMad workflow module that wraps the [superpowers](https://github.com/obra/superpowers) plugin, combining BMad's workflow orchestration with superpowers' disciplined execution capabilities.
+A phase-aware BMad workflow module that wraps the [superpowers](https://github.com/obra/superpowers) plugin, using BMad's orchestration to make superpowers' disciplined development process reliable and effortless.
+
+## Why This Module?
+
+The superpowers plugin provides excellent skills for disciplined development — brainstorming, planning, TDD execution, code review, verification. But in practice, the AI agent decides which skill to invoke based on the current conversation context. When the agent overlooks or skips a skill, the process breaks: steps get missed, quality gates are bypassed, and the workflow drifts off track.
+
+BMad solves this problem. Its workflow orchestration enforces phase ordering, prerequisite checking, and required quality gates — ensuring the AI agent follows the superpowers process step by step instead of improvising. And `/bmad-help` keeps it simple: one command tells you where you are and what to do next, so you never have to track the workflow yourself.
 
 ## How It Works
 
-You don't need to memorize skill names or phase order. **`/bmad-help`** is your single entry point — it detects where you are in the workflow and tells you exactly what to do next.
-
-Every skill also recommends the next step when it completes, so you always know what to run.
+**`/bmad-help`** is your single entry point — it detects where you are in the workflow and tells you exactly what to do next. Every skill also recommends the next step when it completes, so you always know what to run.
 
 ## Quick Start
 
