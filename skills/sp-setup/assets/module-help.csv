@@ -1,5 +1,5 @@
 module,skill,display-name,menu-code,description,action,args,phase,after,before,required,output-location,outputs
-Superpowers Workflow,sp-workflow-guide,Workflow Guide,WG,Detect current workflow phase and recommend next step.,orient,,anytime,,,,sp_plans_folder,phase assessment
+Superpowers Workflow,sp-workflow-guide,Workflow Guide,WG,Detect current workflow phase and recommend next step.,orient,,anytime,,,,,phase assessment
 Superpowers Workflow,sp-brainstorm,Brainstorm,BR,Facilitate ideation and produce a design document.,brainstorm,,1-brainstorm,,,false,sp_plans_folder,design spec
 Superpowers Workflow,sp-plan,Write Plan,PL,Create detailed implementation plan with TDD steps.,write-plan,,2-plan,sp-brainstorm:brainstorm,sp-execute:execute-inline,true,sp_plans_folder,implementation plan
 Superpowers Workflow,sp-execute,Execute Plan,EX,"Execute implementation plan task-by-task with TDD discipline; choose inline or subagent-driven mode.",execute-inline,"{mode: inline|subagent}",3-execute,sp-plan:write-plan,sp-review:request-review,false,sp_plans_folder,implemented features + tests

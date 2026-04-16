@@ -13,11 +13,18 @@ Create a comprehensive, bite-sized implementation plan following superpowers' ex
 
 **This is a required phase** — execution cannot proceed without a plan.
 
+## Configuration
+
+Resolve the plans folder path before proceeding:
+1. Read `{project-root}/_bmad/config.yaml` → look for `sp.sp_plans_folder`
+2. If not configured, fall back to `{project-root}/docs/superpowers/plans`
+3. Use the resolved path for all file checks and save locations below
+
 ## Prerequisites
 
 - **Check:** Does a design document or spec exist?
-  - Look in `docs/superpowers/plans/*-design.md` or `*-brainstorm*.md`
-  - Also check for any markdown file in `docs/superpowers/plans/` that describes the feature
+  - Look in `{plans-folder}/*-design.md` or `*-brainstorm*.md`
+  - Also check for any markdown file in `{plans-folder}/` that describes the feature
   - If found: proceed.
   - If NOT found: warn the user and suggest `[BR] sp-brainstorm` first. Do NOT block — user may have the design in mind.
 - **Check:** Are we in the correct worktree? (if applicable)
@@ -34,13 +41,13 @@ Create a comprehensive, bite-sized implementation plan following superpowers' ex
    - Include exact file paths, complete code, and exact commands
    - Follow TDD discipline: failing test → run → implement → run → commit
    - Include a self-review step for spec coverage
-   - Save the plan to `docs/superpowers/plans/YYYY-MM-DD-<feature-name>.md`
+   - Save the plan to `{plans-folder}/YYYY-MM-DD-<feature-name>.md`
 
 2. **After the superpowers skill completes**, verify outputs:
 
    | Expected Output | How to Verify |
    |----------------|---------------|
-   | Plan file created | Check `docs/superpowers/plans/*.md` for new file |
+   | Plan file created | Check `{plans-folder}/*.md` for new file |
    | Plan has task structure | File contains `### Task N:` headings with checkbox steps |
    | No placeholders | Scan for TBD, TODO, "implement later", "add appropriate" |
 

@@ -13,12 +13,19 @@ Final quality gate. Verify every requirement from the spec/plan has been impleme
 
 **This is a required phase** — do not skip to sp-finish without verifying.
 
+## Configuration
+
+Resolve the plans folder path before proceeding:
+1. Read `{project-root}/_bmad/config.yaml` → look for `sp.sp_plans_folder`
+2. If not configured, fall back to `{project-root}/docs/superpowers/plans`
+3. Use the resolved path to locate the plan/spec document
+
 ## Prerequisites
 
 - **Check:** Was code review completed?
   - If not: warn and suggest `[RV] sp-review` first. This is a soft gate — user can proceed but the risk is higher.
 - **REQUIRED:** A spec or plan document must exist to verify against.
-  - Check `docs/superpowers/plans/*.md`
+  - Check `{plans-folder}/*.md`
   - If no plan found: **BLOCK** — cannot verify without requirements. Direct to `[PL] sp-plan`.
 
 ## Execute

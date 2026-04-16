@@ -11,6 +11,13 @@ Start the superpowers workflow with creative ideation. Produces a design specifi
 
 **Announce at start:** "Using sp-brainstorm to kick off ideation."
 
+## Configuration
+
+Resolve the plans folder path before proceeding:
+1. Read `{project-root}/_bmad/config.yaml` → look for `sp.sp_plans_folder`
+2. If not configured, fall back to `{project-root}/docs/superpowers/plans`
+3. Use the resolved path for output file checks below
+
 ## Prerequisites
 
 - **Check:** Is this a git repository? Run `git rev-parse --is-inside-work-tree`
@@ -34,7 +41,7 @@ Start the superpowers workflow with creative ideation. Produces a design specifi
 
    | Expected Output | How to Verify |
    |----------------|---------------|
-   | Design document | Check for `docs/superpowers/plans/*-design.md` or similar |
+   | Design document | Check for `{plans-folder}/*-design.md` or similar |
    | Worktree (if created) | `git worktree list` shows new entry |
 
 3. **If outputs are missing**, ask the user:

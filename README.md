@@ -36,7 +36,7 @@ After installation, run `/sp-setup` in your project to register the module and c
 
 | Menu Code | Skill | Phase | Delegates To |
 |-----------|-------|-------|-------------|
-| WG | sp-workflow-guide | anytime | superpowers:using-superpowers |
+| WG | sp-workflow-guide | anytime | (self-contained) |
 | BR | sp-brainstorm | 1-brainstorm | superpowers:brainstorming |
 | PL | sp-plan | 2-plan | superpowers:writing-plans |
 | EX | sp-execute | 3-execute | superpowers:executing-plans / subagent-driven-development |

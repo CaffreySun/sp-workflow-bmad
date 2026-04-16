@@ -11,6 +11,13 @@ Home base for the Superpowers Workflow module. Detects your current phase by sca
 
 **Announce at start:** "Using sp-workflow-guide to orient in the superpowers workflow."
 
+## Configuration
+
+Resolve the plans folder path before proceeding:
+1. Read `{project-root}/_bmad/config.yaml` → look for `sp.sp_plans_folder`
+2. If not configured, fall back to `{project-root}/docs/superpowers/plans`
+3. Use the resolved path for all file checks below
+
 ## Phase Detection Logic
 
 Scan the project in this order. The **first unmatched check** is where you are:
@@ -61,8 +68,8 @@ digraph phase_detect {
 
 | Artifact | How to Detect | Indicates |
 |----------|---------------|-----------|
-| Design doc | `docs/superpowers/plans/*-design.md` or `*-brainstorm*.md` | Brainstorm completed |
-| Plan file | `docs/superpowers/plans/*.md` containing task checkboxes | Plan written |
+| Design doc | `{plans-folder}/*-design.md` or `*-brainstorm*.md` | Brainstorm completed |
+| Plan file | `{plans-folder}/*.md` containing task checkboxes | Plan written |
 | Implementation | Source files modified (check `git diff --stat` against plan) | Execution in progress |
 | Review | PR comments exist or review feedback documented | Review requested/received |
 | Verification | Plan checklist all checked AND test run passes | Verification done |

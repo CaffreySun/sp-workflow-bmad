@@ -11,10 +11,17 @@ Execute the implementation plan task-by-task. Choose between two execution modes
 
 **Announce at start:** "Using sp-execute to implement the plan."
 
+## Configuration
+
+Resolve the plans folder path before proceeding:
+1. Read `{project-root}/_bmad/config.yaml` → look for `sp.sp_plans_folder`
+2. If not configured, fall back to `{project-root}/docs/superpowers/plans`
+3. Use the resolved path to locate the plan file
+
 ## Prerequisites
 
 - **REQUIRED:** A plan file must exist.
-  - Check `docs/superpowers/plans/*.md` for a file with task checkboxes.
+  - Check `{plans-folder}/*.md` for a file with task checkboxes.
   - If no plan found: **BLOCK** — direct user to `[PL] sp-plan` first. Cannot execute without a plan.
 - **Check:** Correct git branch?
   - `git branch --show-current` should match the feature branch.
