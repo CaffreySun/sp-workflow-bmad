@@ -1,7 +1,7 @@
 code: sp
 name: Superpowers Workflow
 description: Encapsulates the superpowers plugin development workflow as a phase-aware BMad workflow module, delegating execution to superpowers skills
-module_version: 1.0.0
+module_version: 1.1.0
 default_selected: false
 module_greeting: "Welcome to Superpowers Workflow! This module guides you through structured development: brainstorm → plan → execute → review → verify → finish. Invoke [WG] sp-workflow-guide anytime to orient yourself."
 
