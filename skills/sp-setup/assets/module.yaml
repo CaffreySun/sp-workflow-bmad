@@ -1,0 +1,24 @@
+code: sp
+name: Superpowers Workflow
+description: Encapsulates the superpowers plugin development workflow as a phase-aware BMad workflow module, delegating execution to superpowers skills
+module_version: 1.0.0
+default_selected: false
+module_greeting: "Welcome to Superpowers Workflow! This module guides you through structured development: brainstorm → plan → execute → review → verify → finish. Invoke [WG] sp-workflow-guide anytime to orient yourself."
+
+variables:
+  sp_plans_folder:
+    prompt: "Where should superpowers plan documents be saved?"
+    type: string
+    default: "{project-root}/docs/superpowers/plans"
+    example: "e.g., {project-root}/docs/superpowers/plans"
+    user_setting: false
+  sp_default_execution_mode:
+    prompt: "Default execution mode for sp-execute?"
+    type: single-select
+    options:
+      - value: subagent
+        label: "Subagent-Driven (recommended)"
+      - value: inline
+        label: "Inline Execution"
+    default: subagent
+    user_setting: true

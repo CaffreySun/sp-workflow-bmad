@@ -1,0 +1,13 @@
+module,skill,display-name,menu-code,description,action,args,phase,after,before,required,output-location,outputs
+Superpowers Workflow,sp-workflow-guide,Workflow Guide,WG,Detect current workflow phase and recommend next step.,orient,,anytime,,,,sp_plans_folder,phase assessment
+Superpowers Workflow,sp-brainstorm,Brainstorm,BR,Facilitate ideation and produce a design document.,brainstorm,,1-brainstorm,,,false,sp_plans_folder,design spec
+Superpowers Workflow,sp-plan,Write Plan,PL,Create detailed implementation plan with TDD steps.,write-plan,,2-plan,sp-brainstorm:brainstorm,sp-execute:execute-inline,true,sp_plans_folder,implementation plan
+Superpowers Workflow,sp-execute,Execute Plan,EX,"Execute implementation plan task-by-task with TDD discipline; choose inline or subagent-driven mode.",execute-inline,"{mode: inline|subagent}",3-execute,sp-plan:write-plan,sp-review:request-review,false,sp_plans_folder,implemented features + tests
+Superpowers Workflow,sp-execute,Execute Plan (Subagent),EXS,Execute plan using subagent-driven development — fresh subagent per task with review between tasks.,execute-subagent,"{mode: subagent}",3-execute,sp-plan:write-plan,sp-review:request-review,false,sp_plans_folder,implemented features + tests
+Superpowers Workflow,sp-tdd,TDD Cycle,TD,"Implement feature or bugfix with strict TDD discipline: RED-GREEN-REFACTOR.",tdd-cycle,,anytime,,,,,test files + implementation
+Superpowers Workflow,sp-debugging,Systematic Debugging,DB,Systematically identify and fix bugs using hypothesis-driven approach.,debug,,anytime,,,,,root cause + fix
+Superpowers Workflow,sp-review,Code Review,RV,"Request and receive code review — two-stage: spec compliance then code quality.",request-review,,4-review,sp-execute:execute-inline,sp-verify:verify,false,,review feedback
+Superpowers Workflow,sp-review,Code Review (Receive),RVR,Process review feedback and address all issues.,receive-review,,4-review,sp-review:request-review,sp-verify:verify,false,,addressed feedback
+Superpowers Workflow,sp-verify,Verify Before Completion,VF,Verify all requirements are implemented and tested before shipping.,verify,,5-verify,sp-review:receive-review,sp-finish:finish,true,,verification report
+Superpowers Workflow,sp-finish,Finish Branch,FN,Complete development branch with commit cleanup PR creation and worktree cleanup.,finish,,6-finish,sp-verify:verify,,false,,clean branch + PR
+Superpowers Workflow,sp-worktrees,Git Worktrees,WT,Create or manage git worktrees for isolated parallel development.,create,,anytime,,,,,worktree
