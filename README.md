@@ -1,5 +1,7 @@
 # Superpowers Workflow — BMad Module
 
+**English** | [中文](README_zh.md)
+
 A phase-aware BMad workflow module that wraps the [superpowers](https://github.com/obra/superpowers) plugin, using BMad's orchestration to make superpowers' disciplined development process reliable and effortless.
 
 ## Why This Module?
